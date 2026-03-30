@@ -46,12 +46,14 @@ export interface AppState extends PersistedAppState {
   addHabit: (input: Pick<Habit, "name" | "emoji" | "frequency" | "target" | "color">) => void;
   updateHabit: (id: string, updates: Partial<Omit<Habit, "id" | "history" | "createdAt">>) => void;
   deleteHabit: (id: string) => void;
+  restoreHabit: (habit: Habit, index?: number) => void;
   toggleHabitCompletion: (id: string, dateKey?: string) => void;
   addTask: (
     input: Pick<StudyTask, "title" | "description" | "subject" | "priority" | "deadline" | "tags">
   ) => void;
   updateTask: (id: string, updates: Partial<Omit<StudyTask, "id" | "createdAt">>) => void;
   deleteTask: (id: string) => void;
+  restoreTask: (task: StudyTask, index?: number) => void;
   toggleTaskCompletion: (id: string) => void;
   reorderTasks: (orderedIds: string[]) => void;
   setThemeMode: (themeMode: ThemeMode) => void;

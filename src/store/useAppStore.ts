@@ -54,6 +54,14 @@ export const useAppStore = create<AppState>((set, get) => ({
     set((state) => ({ habits: state.habits.filter((habit) => habit.id !== id) }));
     void persistAppState(extractPersistedState(get()));
   },
+  restoreHabit(habit, index = 0) {
+    set((state) => {
+      const habits = [...state.habits];
+      habits.splice(Math.max(0, Math.min(index, habits.length)), 0, habit);
+      return { habits };
+    });
+    void persistAppState(extractPersistedState(get()));
+  },
   toggleHabitCompletion(id, dateKey = toDateKey(new Date())) {
     set((state) => ({
       habits: state.habits.map((habit) => {
@@ -100,6 +108,20 @@ export const useAppStore = create<AppState>((set, get) => ({
   },
   deleteTask(id) {
     set((state) => ({ tasks: state.tasks.filter((task) => task.id !== id) }));
+    void persistAppState(extractPersistedState(get()));
+  },
+  restoreTask(task, index = get().tasks.length) {
+    set((state) => {
+      const tasks = [...state.tasks];
+      const insertAt = Math.max(0, Math.min(index, tasks.length));
+      tasks.splice(insertAt, 0, task);
+      return {
+        tasks: tasks.map((entry, taskIndex) => ({
+          ...entry,
+          order: taskIndex
+        }))
+      };
+    });
     void persistAppState(extractPersistedState(get()));
   },
   toggleTaskCompletion(id) {

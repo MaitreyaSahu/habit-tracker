@@ -12,6 +12,7 @@ export default function HabitsPage() {
   const addHabit = useAppStore((state) => state.addHabit);
   const updateHabit = useAppStore((state) => state.updateHabit);
   const deleteHabit = useAppStore((state) => state.deleteHabit);
+  const restoreHabit = useAppStore((state) => state.restoreHabit);
   const toggleHabitCompletion = useAppStore((state) => state.toggleHabitCompletion);
 
   return (
@@ -73,19 +74,27 @@ export default function HabitsPage() {
                   visible: { opacity: 1, y: 0 }
                 }}
               >
-                <HabitItem
+              <HabitItem
                   habit={habit}
                   onToggle={() => {
                     toggleHabitCompletion(habit.id);
                     toast.success("Habit updated");
                   }}
                   onDelete={() => {
+                    const deletedHabit = habit;
+                    const deletedIndex = habits.findIndex((entry) => entry.id === habit.id);
                     deleteHabit(habit.id);
-                    toast.success("Habit deleted");
+                    toast("Habit deleted", {
+                      action: {
+                        label: "Undo",
+                        onClick: () => restoreHabit(deletedHabit, deletedIndex)
+                      }
+                    });
                   }}
                   onSave={(name, target) => updateHabit(habit.id, { name, target })}
-                />
-                <HabitCalendar habit={habit} />
+                >
+                  <HabitCalendar habit={habit} />
+                </HabitItem>
               </motion.div>
             ))}
           </motion.div>

@@ -20,6 +20,7 @@ export default function StudyPlannerPage() {
   const addTask = useAppStore((state) => state.addTask);
   const updateTask = useAppStore((state) => state.updateTask);
   const deleteTask = useAppStore((state) => state.deleteTask);
+  const restoreTask = useAppStore((state) => state.restoreTask);
   const toggleTaskCompletion = useAppStore((state) => state.toggleTaskCompletion);
   const reorderTasks = useAppStore((state) => state.reorderTasks);
 
@@ -119,8 +120,18 @@ export default function StudyPlannerPage() {
                 toast.success("Task updated");
               }}
               onDelete={(id) => {
+                const deletedTask = tasks.find((task) => task.id === id);
+                const deletedIndex = tasks.findIndex((task) => task.id === id);
                 deleteTask(id);
-                toast.success("Task deleted");
+                toast("Task deleted", {
+                  action:
+                    deletedTask && deletedIndex !== -1
+                      ? {
+                          label: "Undo",
+                          onClick: () => restoreTask(deletedTask, deletedIndex)
+                        }
+                      : undefined
+                });
               }}
               onUpdate={updateTask}
             />
