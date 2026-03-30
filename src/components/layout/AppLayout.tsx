@@ -37,10 +37,11 @@ export default function AppLayout() {
   };
 
   return (
-    <div className="min-h-screen bg-base-50 bg-grid bg-[size:22px_22px] text-base-900 transition-colors dark:bg-base-950 dark:text-white">
+    <div className="min-h-screen bg-base-50 bg-grid bg-[size:22px_22px] text-base-900 transition-colors dark:bg-[#0b1220] dark:bg-none dark:text-white">
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
-        <div className="absolute left-[-12%] top-[-8%] h-64 w-64 rounded-full bg-sky-400/20 blur-3xl" />
-        <div className="absolute bottom-0 right-[-8%] h-72 w-72 rounded-full bg-teal-300/15 blur-3xl" />
+        <div className="absolute inset-0 hidden dark:block bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.18),_transparent_32%),radial-gradient(circle_at_bottom_right,_rgba(20,184,166,0.14),_transparent_28%),linear-gradient(180deg,_rgba(11,18,32,1)_0%,_rgba(8,13,24,1)_100%)]" />
+        <div className="absolute left-[-12%] top-[-8%] h-64 w-64 rounded-full bg-sky-400/20 blur-3xl dark:bg-sky-500/10" />
+        <div className="absolute bottom-0 right-[-8%] h-72 w-72 rounded-full bg-teal-300/15 blur-3xl dark:bg-teal-400/10" />
       </div>
 
       <div className="relative mx-auto flex min-h-screen w-full max-w-6xl flex-col px-4 pb-6 pt-4 sm:px-6 lg:px-8">
