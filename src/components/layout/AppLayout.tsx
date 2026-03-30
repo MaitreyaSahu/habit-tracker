@@ -1,15 +1,17 @@
-import { Download, Wifi, WifiOff } from "lucide-react";
+import { Download, Smartphone, Wifi, WifiOff, X } from "lucide-react";
 import { motion } from "framer-motion";
 import { Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import BottomNav from "@/components/layout/BottomNav";
+import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import { useInstallPrompt } from "@/hooks/useInstallPrompt";
 
 export default function AppLayout() {
   const { canInstall, install } = useInstallPrompt();
   const [online, setOnline] = useState(window.navigator.onLine);
+  const [showInstallPrompt, setShowInstallPrompt] = useState(false);
 
   useEffect(() => {
     const goOnline = () => setOnline(true);
@@ -21,6 +23,18 @@ export default function AppLayout() {
       window.removeEventListener("offline", goOffline);
     };
   }, []);
+
+  useEffect(() => {
+    const dismissed = localStorage.getItem("tracker-install-dismissed") === "true";
+    if (canInstall && !dismissed) {
+      setShowInstallPrompt(true);
+    }
+  }, [canInstall]);
+
+  const dismissInstallPrompt = () => {
+    localStorage.setItem("tracker-install-dismissed", "true");
+    setShowInstallPrompt(false);
+  };
 
   return (
     <div className="min-h-screen bg-base-50 bg-grid bg-[size:22px_22px] text-base-900 transition-colors dark:bg-base-950 dark:text-white">
@@ -50,6 +64,55 @@ export default function AppLayout() {
             </Button>
           ) : null}
         </div>
+
+        {showInstallPrompt ? (
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 12 }}
+            transition={{ duration: 0.22, ease: "easeOut" }}
+            className="mb-6"
+          >
+            <Card className="border-base-200/80 bg-white/85 dark:border-white/10 dark:bg-base-900/85">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex items-start gap-3">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-base-900 text-white dark:bg-white dark:text-base-900">
+                    <Smartphone className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h2 className="text-base font-semibold text-base-900 dark:text-white">
+                      Install Tracker
+                    </h2>
+                    <p className="mt-1 max-w-xl text-sm text-base-500 dark:text-base-300">
+                      Add Tracker to your home screen for a faster, full-screen experience with offline access.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <Button
+                    className="gap-2"
+                    onClick={async () => {
+                      const accepted = await install();
+                      if (accepted) {
+                        toast.success("Tracker installed");
+                        setShowInstallPrompt(false);
+                      } else {
+                        toast.message("Install dismissed");
+                      }
+                    }}
+                  >
+                    <Download className="h-4 w-4" />
+                    Install app
+                  </Button>
+                  <Button variant="ghost" onClick={dismissInstallPrompt} aria-label="Dismiss install prompt">
+                    <X className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            </Card>
+          </motion.div>
+        ) : null}
 
         <motion.main
           initial={{ opacity: 0, y: 16 }}
