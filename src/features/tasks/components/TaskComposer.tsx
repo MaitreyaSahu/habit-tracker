@@ -18,8 +18,8 @@ export default function TaskComposer({ onCreate }: TaskComposerProps) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [subject, setSubject] = useState("");
-  const [priority, setPriority] = useState<TaskPriority>("medium");
-  const [deadline, setDeadline] = useState(new Date().toISOString().slice(0, 10));
+  const [priority, setPriority] = useState<TaskPriority | "">("");
+  const [deadline, setDeadline] = useState("");
   const [tags, setTags] = useState("");
 
   return (
@@ -50,9 +50,10 @@ export default function TaskComposer({ onCreate }: TaskComposerProps) {
         <div className="grid gap-3">
           <select
             value={priority}
-            onChange={(event) => setPriority(event.target.value as TaskPriority)}
+            onChange={(event) => setPriority(event.target.value as TaskPriority | "")}
             className="rounded-2xl border border-base-200 bg-white/80 px-4 py-3 text-sm outline-none dark:border-base-700 dark:bg-base-800/80"
           >
+            <option value="">Priority</option>
             <option value="low">Low priority</option>
             <option value="medium">Medium priority</option>
             <option value="high">High priority</option>
@@ -73,7 +74,7 @@ export default function TaskComposer({ onCreate }: TaskComposerProps) {
       </div>
       <Button
         onClick={() => {
-          if (!title.trim() || !subject.trim()) {
+          if (!title.trim() || !subject.trim() || !priority || !deadline) {
             return;
           }
           onCreate({
@@ -87,8 +88,8 @@ export default function TaskComposer({ onCreate }: TaskComposerProps) {
           setTitle("");
           setDescription("");
           setSubject("");
-          setPriority("medium");
-          setDeadline(new Date().toISOString().slice(0, 10));
+          setPriority("");
+          setDeadline("");
           setTags("");
         }}
       >

@@ -22,9 +22,9 @@ const colorChoices = [
 
 export default function HabitComposer({ onCreate }: HabitComposerProps) {
   const [name, setName] = useState("");
-  const [emoji, setEmoji] = useState("✨");
-  const [frequency, setFrequency] = useState<HabitFrequency>("daily");
-  const [target, setTarget] = useState(1);
+  const [emoji, setEmoji] = useState("");
+  const [frequency, setFrequency] = useState<HabitFrequency | "">("");
+  const [target, setTarget] = useState("");
   const [color, setColor] = useState(colorChoices[0]);
 
   return (
@@ -49,9 +49,10 @@ export default function HabitComposer({ onCreate }: HabitComposerProps) {
         />
         <select
           value={frequency}
-          onChange={(event) => setFrequency(event.target.value as HabitFrequency)}
+          onChange={(event) => setFrequency(event.target.value as HabitFrequency | "")}
           className="rounded-2xl border border-base-200 bg-white/80 px-4 py-3 text-sm outline-none dark:border-base-700 dark:bg-base-800/80"
         >
+          <option value="">Frequency</option>
           <option value="daily">Daily</option>
           <option value="weekly">Weekly</option>
         </select>
@@ -60,7 +61,7 @@ export default function HabitComposer({ onCreate }: HabitComposerProps) {
           min={1}
           max={7}
           value={target}
-          onChange={(event) => setTarget(Number(event.target.value))}
+          onChange={(event) => setTarget(event.target.value)}
           className="rounded-2xl border border-base-200 bg-white/80 px-4 py-3 text-sm outline-none dark:border-base-700 dark:bg-base-800/80"
           placeholder="Target"
         />
@@ -78,14 +79,28 @@ export default function HabitComposer({ onCreate }: HabitComposerProps) {
         </div>
         <Button
           onClick={() => {
-            if (!name.trim()) {
+            const parsedTarget = Number(target);
+            if (
+              !name.trim() ||
+              !emoji.trim() ||
+              !frequency ||
+              !target ||
+              Number.isNaN(parsedTarget) ||
+              parsedTarget < 1
+            ) {
               return;
             }
-            onCreate({ name: name.trim(), emoji, frequency, target, color });
+            onCreate({
+              name: name.trim(),
+              emoji: emoji.trim(),
+              frequency,
+              target: parsedTarget,
+              color
+            });
             setName("");
-            setEmoji("✨");
-            setFrequency("daily");
-            setTarget(1);
+            setEmoji("");
+            setFrequency("");
+            setTarget("");
             setColor(colorChoices[0]);
           }}
         >
