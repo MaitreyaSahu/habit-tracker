@@ -49,7 +49,7 @@ export default function TaskComposer({ onCreate }: TaskComposerProps) {
             onChange={(event) => setTitle(event.target.value)}
             placeholder="Organic chemistry recap"
             className={cn(
-              "w-full rounded-2xl border bg-white/80 px-4 py-3 text-sm outline-none transition focus:border-sky-400 dark:bg-base-800/80",
+              "w-full rounded-2xl border bg-white/80 px-4 py-3 text-base outline-none transition focus:border-sky-400 sm:text-sm dark:bg-base-800/80",
               showError(errors.title) ? "border-rose-400 dark:border-rose-400" : "border-base-200 dark:border-base-700"
             )}
           />
@@ -63,7 +63,7 @@ export default function TaskComposer({ onCreate }: TaskComposerProps) {
             onChange={(event) => setSubject(event.target.value)}
             placeholder="Subject"
             className={cn(
-              "w-full rounded-2xl border bg-white/80 px-4 py-3 text-sm outline-none transition focus:border-sky-400 dark:bg-base-800/80",
+              "w-full rounded-2xl border bg-white/80 px-4 py-3 text-base outline-none transition focus:border-sky-400 sm:text-sm dark:bg-base-800/80",
               showError(errors.subject) ? "border-rose-400 dark:border-rose-400" : "border-base-200 dark:border-base-700"
             )}
           />
@@ -76,7 +76,7 @@ export default function TaskComposer({ onCreate }: TaskComposerProps) {
             value={description}
             onChange={(event) => setDescription(event.target.value)}
             placeholder="What exactly needs to be done?"
-            className="min-h-28 w-full rounded-2xl border border-base-200 bg-white/80 px-4 py-3 text-sm outline-none transition focus:border-sky-400 dark:border-base-700 dark:bg-base-800/80"
+            className="min-h-28 w-full rounded-2xl border border-base-200 bg-white/80 px-4 py-3 text-base outline-none transition focus:border-sky-400 sm:text-sm dark:border-base-700 dark:bg-base-800/80"
           />
           <p className="min-h-5 text-xs text-base-400 dark:text-base-500">
             Optional, but useful for breaking the task down.
@@ -88,7 +88,7 @@ export default function TaskComposer({ onCreate }: TaskComposerProps) {
               value={priority}
               onChange={(event) => setPriority(event.target.value as TaskPriority | "")}
               className={cn(
-                "w-full rounded-2xl border bg-white/80 px-4 py-3 text-sm outline-none dark:bg-base-800/80",
+                "w-full rounded-2xl border bg-white/80 px-4 py-3 text-base outline-none sm:text-sm dark:bg-base-800/80",
                 showError(errors.priority) ? "border-rose-400 dark:border-rose-400" : "border-base-200 dark:border-base-700"
               )}
             >
@@ -108,7 +108,7 @@ export default function TaskComposer({ onCreate }: TaskComposerProps) {
               onChange={(event) => setDeadline(event.target.value)}
               min={today}
               className={cn(
-                "w-full rounded-2xl border bg-white/80 px-4 py-3 text-sm outline-none dark:bg-base-800/80",
+                "w-full rounded-2xl border bg-white/80 px-4 py-3 text-base outline-none sm:text-sm dark:bg-base-800/80",
                 showError(errors.deadline) ? "border-rose-400 dark:border-rose-400" : "border-base-200 dark:border-base-700"
               )}
             />
@@ -118,11 +118,11 @@ export default function TaskComposer({ onCreate }: TaskComposerProps) {
           </div>
           <div className="space-y-1.5">
             <input
-              value={tags}
-              onChange={(event) => setTags(event.target.value)}
-              placeholder="Tags, comma separated"
-              className="w-full rounded-2xl border border-base-200 bg-white/80 px-4 py-3 text-sm outline-none dark:border-base-700 dark:bg-base-800/80"
-            />
+            value={tags}
+            onChange={(event) => setTags(event.target.value)}
+            placeholder="Tags, comma separated"
+            className="w-full rounded-2xl border border-base-200 bg-white/80 px-4 py-3 text-base outline-none sm:text-sm dark:border-base-700 dark:bg-base-800/80"
+          />
             <p className="min-h-5 text-xs text-base-400 dark:text-base-500">
               Optional tags help with quick search later.
             </p>

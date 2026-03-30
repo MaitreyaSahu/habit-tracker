@@ -75,7 +75,7 @@ export default function TaskCard({
                 <textarea
                   value={task.description}
                   onChange={(event) => onUpdate({ description: event.target.value })}
-                  className="mt-1 min-h-14 w-full resize-none bg-transparent text-sm text-base-500 outline-none dark:text-base-300"
+                  className="mt-1 min-h-14 w-full resize-none bg-transparent text-base text-base-500 outline-none sm:text-sm dark:text-base-300"
                 />
               </div>
 

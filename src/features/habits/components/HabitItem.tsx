@@ -152,7 +152,7 @@ export default function HabitItem({ habit, onToggle, onDelete, onSave, children 
                     value={target}
                     onChange={(event) => setTarget(Number(event.target.value))}
                     onBlur={() => onSave(name, target)}
-                    className="w-12 bg-transparent text-right text-sm font-medium outline-none"
+                    className="w-12 bg-transparent text-right text-base font-medium outline-none sm:text-sm"
                   />
                 </label>
                 <span className="pt-0.5 text-xs text-base-500">Swipe right to complete, left to delete</span>

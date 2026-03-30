@@ -89,7 +89,7 @@ export default function HabitComposer({ onCreate }: HabitComposerProps) {
             value={name}
             onChange={(event) => setName(event.target.value)}
             className={cn(
-              "w-full rounded-2xl border bg-white/80 px-4 py-3 text-sm outline-none transition focus:border-sky-400 dark:bg-base-800/80",
+              "w-full rounded-2xl border bg-white/80 px-4 py-3 text-base outline-none transition focus:border-sky-400 sm:text-sm dark:bg-base-800/80",
               showError(errors.name) ? "border-rose-400 dark:border-rose-400" : "border-base-200 dark:border-base-700"
             )}
             placeholder="Morning walk"
@@ -103,7 +103,7 @@ export default function HabitComposer({ onCreate }: HabitComposerProps) {
             value={frequency}
             onChange={(event) => setFrequency(event.target.value as HabitFrequency | "")}
             className={cn(
-              "w-full rounded-2xl border bg-white/80 px-4 py-3 text-sm outline-none dark:bg-base-800/80",
+              "w-full rounded-2xl border bg-white/80 px-4 py-3 text-base outline-none sm:text-sm dark:bg-base-800/80",
               showError(errors.frequency) ? "border-rose-400 dark:border-rose-400" : "border-base-200 dark:border-base-700"
             )}
           >
@@ -123,7 +123,7 @@ export default function HabitComposer({ onCreate }: HabitComposerProps) {
             value={target}
             onChange={(event) => setTarget(event.target.value)}
             className={cn(
-              "w-full rounded-2xl border bg-white/80 px-4 py-3 text-sm outline-none dark:bg-base-800/80",
+              "w-full rounded-2xl border bg-white/80 px-4 py-3 text-base outline-none sm:text-sm dark:bg-base-800/80",
               showError(errors.target) ? "border-rose-400 dark:border-rose-400" : "border-base-200 dark:border-base-700"
             )}
             placeholder="Target"

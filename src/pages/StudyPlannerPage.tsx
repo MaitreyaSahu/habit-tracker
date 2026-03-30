@@ -79,7 +79,7 @@ export default function StudyPlannerPage() {
           ))}
         </div>
 
-        <label className="flex min-w-[260px] items-center gap-2 rounded-2xl border border-base-200 bg-white/80 px-4 py-3 text-sm dark:border-base-700 dark:bg-base-800/80">
+        <label className="flex min-w-[260px] items-center gap-2 rounded-2xl border border-base-200 bg-white/80 px-4 py-3 text-base sm:text-sm dark:border-base-700 dark:bg-base-800/80">
           <Search className="h-4 w-4 text-base-400" />
           <input
             value={query}
