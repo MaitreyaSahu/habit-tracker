@@ -21,6 +21,12 @@ export default function SettingsPage() {
   const habits = useAppStore((state) => state.habits);
   const tasks = useAppStore((state) => state.tasks);
   const settings = useAppStore((state) => state.settings);
+  const appVersion = __APP_VERSION__;
+  const buildHash = __APP_BUILD_HASH__;
+  const buildTimestamp = new Date(__APP_BUILD_TIMESTAMP__).toLocaleString("en-IN", {
+    dateStyle: "medium",
+    timeStyle: "short"
+  });
 
   const handleExport = () => {
     const blob = new Blob([JSON.stringify({ habits, tasks, settings }, null, 2)], {
@@ -116,6 +122,22 @@ export default function SettingsPage() {
         <p className="text-sm text-base-500 dark:text-base-300">
           Offline data is stored locally in IndexedDB with a LocalStorage fallback for resilience.
         </p>
+        <div className="flex items-center justify-between rounded-2xl bg-base-100/90 px-4 py-3 text-sm ring-1 ring-base-200 dark:bg-base-800/80 dark:ring-base-700">
+          <span className="font-medium text-base-700 dark:text-base-200">App version</span>
+          <span className="rounded-full bg-white px-3 py-1 font-semibold text-base-900 ring-1 ring-base-200 dark:bg-base-900 dark:text-base-50 dark:ring-base-700">
+            v{appVersion}
+          </span>
+        </div>
+        <div className="grid gap-3 rounded-2xl bg-base-100/90 px-4 py-3 text-sm ring-1 ring-base-200 dark:bg-base-800/80 dark:ring-base-700 sm:grid-cols-2">
+          <div className="space-y-1">
+            <div className="font-medium text-base-700 dark:text-base-200">Build</div>
+            <div className="font-mono text-base-900 dark:text-base-50">{buildHash}</div>
+          </div>
+          <div className="space-y-1">
+            <div className="font-medium text-base-700 dark:text-base-200">Built on</div>
+            <div className="text-base-900 dark:text-base-50">{buildTimestamp}</div>
+          </div>
+        </div>
       </Card>
     </div>
   );
