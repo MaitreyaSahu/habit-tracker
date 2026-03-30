@@ -27,12 +27,32 @@ export default function TaskCard({
   onUpdate
 }: TaskCardProps) {
   return (
-    <motion.div layout whileTap={{ scale: 0.985 }}>
-      <div className="rounded-[28px] border border-white/60 bg-white/70 p-4 shadow-card backdrop-blur-xl dark:border-white/10 dark:bg-base-900/70">
+    <motion.div
+      layout
+      whileTap={{ scale: 0.985 }}
+      animate={{
+        scale: task.completed ? 0.985 : 1,
+        opacity: task.completed ? 0.88 : 1
+      }}
+      transition={{ type: "spring", stiffness: 320, damping: 22 }}
+    >
+      <motion.div
+        className="rounded-[28px] border border-white/60 bg-white/70 p-4 shadow-card backdrop-blur-xl dark:border-white/10 dark:bg-base-900/70"
+        animate={{
+          boxShadow: task.completed
+            ? "0 20px 60px -20px rgba(16, 185, 129, 0.18)"
+            : "0 20px 60px -20px rgba(15, 23, 42, 0.28)"
+        }}
+      >
         <div className="flex items-start gap-3">
-          <button
+          <motion.button
             type="button"
             onClick={onToggle}
+            whileTap={{ scale: 0.88 }}
+            animate={{
+              scale: task.completed ? [1, 1.16, 1] : 1
+            }}
+            transition={{ duration: 0.28 }}
             className={cn(
               "mt-1 h-6 w-6 rounded-full border-2 transition",
               task.completed
@@ -105,7 +125,7 @@ export default function TaskCard({
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </motion.div>
   );
 }

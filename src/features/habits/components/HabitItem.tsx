@@ -26,13 +26,32 @@ export default function HabitItem({ habit, onToggle, onDelete, onSave }: HabitIt
   });
 
   return (
-    <motion.div whileTap={{ scale: 0.985 }} {...handlers}>
+    <motion.div
+      whileTap={{ scale: 0.985 }}
+      animate={{
+        y: completedToday ? -2 : 0
+      }}
+      transition={{ type: "spring", stiffness: 260, damping: 18 }}
+      {...handlers}
+    >
+      <motion.div
+        animate={{
+          boxShadow: completedToday
+            ? "0 20px 60px -20px rgba(16, 185, 129, 0.22)"
+            : "0 20px 60px -20px rgba(15, 23, 42, 0.28)"
+        }}
+        className="rounded-[28px]"
+      >
       <Card className={`bg-gradient-to-br ${habit.color} border-white/60`}>
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex items-start gap-4">
-            <div className="flex h-14 w-14 items-center justify-center rounded-3xl bg-white/75 text-3xl shadow-sm dark:bg-base-900/80">
+            <motion.div
+              animate={{ scale: completedToday ? [1, 1.08, 1] : 1, rotate: completedToday ? [0, -4, 0] : 0 }}
+              transition={{ duration: 0.35 }}
+              className="flex h-14 w-14 items-center justify-center rounded-3xl bg-white/75 text-3xl shadow-sm dark:bg-base-900/80"
+            >
               {habit.emoji}
-            </div>
+            </motion.div>
             <div className="space-y-3">
               <div className="flex flex-wrap items-center gap-3">
                 <input
@@ -68,9 +87,12 @@ export default function HabitItem({ habit, onToggle, onDelete, onSave }: HabitIt
           </div>
 
           <div className="flex items-center gap-3">
-            <button
+            <motion.button
               onClick={onToggle}
               type="button"
+              whileTap={{ scale: 0.95 }}
+              animate={{ scale: completedToday ? [1, 1.04, 1] : 1 }}
+              transition={{ duration: 0.28 }}
               className={`rounded-2xl px-4 py-3 text-sm font-semibold transition ${
                 completedToday
                   ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/25"
@@ -78,7 +100,7 @@ export default function HabitItem({ habit, onToggle, onDelete, onSave }: HabitIt
               }`}
             >
               {completedToday ? "Completed today" : "Mark complete"}
-            </button>
+            </motion.button>
             <button
               onClick={onDelete}
               type="button"
@@ -89,6 +111,7 @@ export default function HabitItem({ habit, onToggle, onDelete, onSave }: HabitIt
           </div>
         </div>
       </Card>
+      </motion.div>
     </motion.div>
   );
 }

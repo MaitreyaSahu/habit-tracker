@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { Search } from "lucide-react";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
@@ -46,14 +47,25 @@ export default function StudyPlannerPage() {
         subtitle="Structure your workload with priorities, drag-and-drop ordering, and fast completion."
       />
 
-      <TaskComposer
-        onCreate={(input) => {
-          addTask(input);
-          toast.success("Task added");
-        }}
-      />
+      <motion.div
+        initial={{ opacity: 0, y: 18 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.28, ease: "easeOut" }}
+      >
+        <TaskComposer
+          onCreate={(input) => {
+            addTask(input);
+            toast.success("Task added");
+          }}
+        />
+      </motion.div>
 
-      <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+      <motion.div
+        initial={{ opacity: 0, y: 18 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.32, delay: 0.04, ease: "easeOut" }}
+        className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between"
+      >
         <div className="flex flex-wrap gap-2">
           {filters.map((item) => (
             <Button
@@ -75,28 +87,46 @@ export default function StudyPlannerPage() {
             className="w-full bg-transparent outline-none"
           />
         </label>
-      </div>
+      </motion.div>
 
-      {filteredTasks.length === 0 ? (
-        <EmptyState
-          title="Nothing in this lane"
-          description="Change the filter or add a task to shape your next focused session."
-        />
-      ) : (
-        <TaskBoard
-          tasks={filteredTasks}
-          onReorder={reorderTasks}
-          onToggle={(id) => {
-            toggleTaskCompletion(id);
-            toast.success("Task updated");
-          }}
-          onDelete={(id) => {
-            deleteTask(id);
-            toast.success("Task deleted");
-          }}
-          onUpdate={updateTask}
-        />
-      )}
+      <AnimatePresence mode="wait">
+        {filteredTasks.length === 0 ? (
+          <motion.div
+            key="empty-tasks"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.22 }}
+          >
+            <EmptyState
+              title="Nothing in this lane"
+              description="Change the filter or add a task to shape your next focused session."
+            />
+          </motion.div>
+        ) : (
+          <motion.div
+            key={`tasks-${filter}-${query}`}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.24 }}
+          >
+            <TaskBoard
+              tasks={filteredTasks}
+              onReorder={reorderTasks}
+              onToggle={(id) => {
+                toggleTaskCompletion(id);
+                toast.success("Task updated");
+              }}
+              onDelete={(id) => {
+                deleteTask(id);
+                toast.success("Task deleted");
+              }}
+              onUpdate={updateTask}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

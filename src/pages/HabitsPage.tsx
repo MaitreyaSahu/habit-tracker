@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { toast } from "sonner";
 import PageHeader from "@/components/layout/PageHeader";
 import EmptyState from "@/components/ui/EmptyState";
@@ -20,39 +21,76 @@ export default function HabitsPage() {
         subtitle="Build rhythms you can trust, with streaks and history that work offline."
       />
 
-      <HabitComposer
-        onCreate={(input) => {
-          addHabit(input);
-          toast.success("Habit created");
-        }}
-      />
-
-      {habits.length === 0 ? (
-        <EmptyState
-          title="No habits yet"
-          description="Start with one habit you want to make effortless. It will show streaks and history instantly."
+      <motion.div
+        initial={{ opacity: 0, y: 18 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.28, ease: "easeOut" }}
+      >
+        <HabitComposer
+          onCreate={(input) => {
+            addHabit(input);
+            toast.success("Habit created");
+          }}
         />
-      ) : (
-        <div className="space-y-4">
-          {habits.map((habit) => (
-            <div key={habit.id} className="space-y-4">
-              <HabitItem
-                habit={habit}
-                onToggle={() => {
-                  toggleHabitCompletion(habit.id);
-                  toast.success("Habit updated");
+      </motion.div>
+
+      <AnimatePresence mode="wait">
+        {habits.length === 0 ? (
+          <motion.div
+            key="empty-habits"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.22 }}
+          >
+            <EmptyState
+              title="No habits yet"
+              description="Start with one habit you want to make effortless. It will show streaks and history instantly."
+            />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="habit-list"
+            className="space-y-4"
+            variants={{
+              hidden: {},
+              visible: {
+                transition: {
+                  staggerChildren: 0.06
+                }
+              }
+            }}
+            initial="hidden"
+            animate="visible"
+            exit={{ opacity: 0, y: -12 }}
+          >
+            {habits.map((habit) => (
+              <motion.div
+                key={habit.id}
+                className="space-y-4"
+                variants={{
+                  hidden: { opacity: 0, y: 16 },
+                  visible: { opacity: 1, y: 0 }
                 }}
-                onDelete={() => {
-                  deleteHabit(habit.id);
-                  toast.success("Habit deleted");
-                }}
-                onSave={(name, target) => updateHabit(habit.id, { name, target })}
-              />
-              <HabitCalendar habit={habit} />
-            </div>
-          ))}
-        </div>
-      )}
+              >
+                <HabitItem
+                  habit={habit}
+                  onToggle={() => {
+                    toggleHabitCompletion(habit.id);
+                    toast.success("Habit updated");
+                  }}
+                  onDelete={() => {
+                    deleteHabit(habit.id);
+                    toast.success("Habit deleted");
+                  }}
+                  onSave={(name, target) => updateHabit(habit.id, { name, target })}
+                />
+                <HabitCalendar habit={habit} />
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
