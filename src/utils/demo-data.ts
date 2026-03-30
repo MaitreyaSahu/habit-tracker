@@ -101,6 +101,6 @@ export const demoState: PersistedAppState = {
     }
   ],
   settings: {
-    themeMode: "system"
+    themeMode: "light"
   }
 };
