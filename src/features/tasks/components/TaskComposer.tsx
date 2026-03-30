@@ -25,7 +25,7 @@ export default function TaskComposer({ onCreate }: TaskComposerProps) {
   return (
     <Card className="space-y-4">
       <div>
-        <h3 className="text-lg font-semibold text-base-900 dark:text-white">Plan a study block</h3>
+        <h3 className="text-lg font-semibold text-base-900 dark:text-base-50">Plan a study block</h3>
         <p className="text-sm text-base-500 dark:text-base-300">Capture tasks with structure and intent.</p>
       </div>
       <div className="grid gap-3 md:grid-cols-2">

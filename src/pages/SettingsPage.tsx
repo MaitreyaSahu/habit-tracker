@@ -63,7 +63,7 @@ export default function SettingsPage() {
       <div className="grid gap-4 xl:grid-cols-2">
         <Card className="space-y-4">
           <div>
-            <h3 className="text-lg font-semibold text-base-900 dark:text-white">Appearance</h3>
+            <h3 className="text-lg font-semibold text-base-900 dark:text-base-50">Appearance</h3>
             <p className="text-sm text-base-500 dark:text-base-300">Switch between automatic and manual theme modes.</p>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -83,7 +83,7 @@ export default function SettingsPage() {
 
         <Card className="space-y-4">
           <div>
-            <h3 className="text-lg font-semibold text-base-900 dark:text-white">Data controls</h3>
+            <h3 className="text-lg font-semibold text-base-900 dark:text-base-50">Data controls</h3>
             <p className="text-sm text-base-500 dark:text-base-300">Export your workspace, restore a backup, or reset everything.</p>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -109,7 +109,7 @@ export default function SettingsPage() {
       </div>
 
       <Card className="space-y-3">
-        <h3 className="text-lg font-semibold text-base-900 dark:text-white">Preview & install</h3>
+        <h3 className="text-lg font-semibold text-base-900 dark:text-base-50">Preview & install</h3>
         <p className="text-sm text-base-500 dark:text-base-300">
           Open the app in a mobile browser or Chromium desktop browser and use the install prompt to add Tracker to the home screen.
         </p>

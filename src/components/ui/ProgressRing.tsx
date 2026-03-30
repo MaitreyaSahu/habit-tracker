@@ -39,7 +39,7 @@ export default function ProgressRing({ value, label }: ProgressRingProps) {
         </defs>
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-xl font-semibold text-base-900 dark:text-white">{value}%</span>
+        <span className="text-xl font-semibold text-base-900 dark:text-base-50">{value}%</span>
         <span className="text-xs text-base-500 dark:text-base-400">{label}</span>
       </div>
     </div>

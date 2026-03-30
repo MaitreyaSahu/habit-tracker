@@ -30,7 +30,7 @@ export default function HabitComposer({ onCreate }: HabitComposerProps) {
   return (
     <Card className="space-y-4">
       <div>
-        <h3 className="text-lg font-semibold text-base-900 dark:text-white">New habit</h3>
+        <h3 className="text-lg font-semibold text-base-900 dark:text-base-50">New habit</h3>
         <p className="text-sm text-base-500 dark:text-base-300">Add a ritual worth repeating.</p>
       </div>
       <div className="grid gap-3 md:grid-cols-[0.9fr_2.1fr_1fr_1fr]">

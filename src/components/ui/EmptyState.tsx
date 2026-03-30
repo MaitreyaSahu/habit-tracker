@@ -16,7 +16,7 @@ export default function EmptyState({ title, description, action }: EmptyStatePro
           ✦
         </div>
         <div>
-          <h3 className="text-lg font-semibold text-base-900 dark:text-white">{title}</h3>
+          <h3 className="text-lg font-semibold text-base-900 dark:text-base-50">{title}</h3>
           <p className="mt-1 max-w-sm text-sm text-base-500 dark:text-base-300">{description}</p>
         </div>
         {action}
