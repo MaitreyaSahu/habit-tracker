@@ -4,9 +4,10 @@ import { toDateKey } from "@/utils/date";
 
 interface HabitCalendarProps {
   habit: Habit;
+  onToggleDate: (dateKey: string) => void;
 }
 
-export default function HabitCalendar({ habit }: HabitCalendarProps) {
+export default function HabitCalendar({ habit, onToggleDate }: HabitCalendarProps) {
   const end = new Date();
   const days = eachDayOfInterval({
     start: subDays(end, 27),
@@ -47,9 +48,11 @@ export default function HabitCalendar({ habit }: HabitCalendarProps) {
           const complete = Boolean(habit.history[toDateKey(day)]);
 
           return (
-            <div
+            <button
+              type="button"
               key={day.toISOString()}
               title={`${format(day, "MMM d")}${complete ? " - completed" : ""}`}
+              onClick={() => onToggleDate(toDateKey(day))}
               className={`group relative h-8 rounded-xl transition ${
                 complete
                   ? "bg-base-900 shadow-sm shadow-base-900/10 dark:bg-white"
@@ -63,7 +66,7 @@ export default function HabitCalendar({ habit }: HabitCalendarProps) {
               >
                 {format(day, "d")}
               </div>
-            </div>
+            </button>
           );
         })}
       </div>

@@ -93,7 +93,13 @@ export default function HabitsPage() {
                   }}
                   onSave={(name, target) => updateHabit(habit.id, { name, target })}
                 >
-                  <HabitCalendar habit={habit} />
+                  <HabitCalendar
+                    habit={habit}
+                    onToggleDate={(dateKey) => {
+                      toggleHabitCompletion(habit.id, dateKey);
+                      toast.success(`Updated ${habit.name} for ${dateKey}`);
+                    }}
+                  />
                 </HabitItem>
               </motion.div>
             ))}

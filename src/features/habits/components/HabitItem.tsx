@@ -1,4 +1,4 @@
-import { Flame, Trash2 } from "lucide-react";
+import { Check, Flame, Trash2 } from "lucide-react";
 import { motion } from "framer-motion";
 import type { ReactNode } from "react";
 import { useState } from "react";
@@ -118,34 +118,33 @@ export default function HabitItem({ habit, onToggle, onDelete, onSave, children 
         </div>
       </div>
       <Card className={`bg-gradient-to-br ${habit.color} border-white/60`}>
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex items-start gap-4">
-            <motion.div
-              animate={{ scale: completedToday ? [1, 1.08, 1] : 1, rotate: completedToday ? [0, -4, 0] : 0 }}
-              transition={{ duration: 0.35 }}
-              className="flex h-14 w-14 items-center justify-center rounded-3xl bg-white/75 text-3xl shadow-sm dark:bg-base-900/80"
-            >
-              {habit.emoji}
-            </motion.div>
-            <div className="space-y-3">
-              <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+          <div className="min-w-0 space-y-3">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                <motion.div
+                  animate={{ scale: completedToday ? [1, 1.08, 1] : 1, rotate: completedToday ? [0, -4, 0] : 0 }}
+                  transition={{ duration: 0.35 }}
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white/80 text-2xl shadow-sm dark:bg-base-900/80"
+                >
+                  {habit.emoji}
+                </motion.div>
                 <input
                   value={name}
                   onChange={(event) => setName(event.target.value)}
                   onBlur={() => onSave(name, target)}
-                  className="min-w-[180px] bg-transparent text-lg font-semibold text-base-900 outline-none dark:text-white"
+                  className="min-w-[180px] flex-1 bg-transparent text-lg font-semibold leading-tight text-base-900 outline-none dark:text-white"
                 />
-                <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-medium text-base-600 dark:bg-base-900/70 dark:text-base-300">
+                <span className="inline-flex h-8 items-center rounded-full bg-white/70 px-3 text-xs font-medium text-base-600 dark:bg-base-900/70 dark:text-base-300">
                   {habit.frequency === "daily" ? "Daily" : `${habit.target}x weekly`}
                 </span>
               </div>
-              <div className="flex flex-wrap items-center gap-3 text-sm text-base-600 dark:text-base-300">
-                <div className="inline-flex items-center gap-1 rounded-full bg-white/65 px-3 py-1.5 dark:bg-base-900/65">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-base-600 dark:text-base-300">
+                <div className="inline-flex h-9 items-center gap-1.5 rounded-full bg-white/65 px-3 dark:bg-base-900/65">
                   <Flame className="h-4 w-4 text-amber-500" />
                   <span>{streak} streak</span>
                 </div>
-                <label className="inline-flex items-center gap-2 rounded-full bg-white/65 px-3 py-1.5 dark:bg-base-900/65">
-                  <span>Target</span>
+                <label className="inline-flex h-9 items-center gap-2 rounded-full bg-white/65 px-3 dark:bg-base-900/65">
+                  <span className="text-sm">Target</span>
                   <input
                     type="number"
                     min={1}
@@ -153,33 +152,34 @@ export default function HabitItem({ habit, onToggle, onDelete, onSave, children 
                     value={target}
                     onChange={(event) => setTarget(Number(event.target.value))}
                     onBlur={() => onSave(name, target)}
-                    className="w-12 bg-transparent text-right outline-none"
+                    className="w-12 bg-transparent text-right text-sm font-medium outline-none"
                   />
                 </label>
-                <span className="text-xs text-base-500">Swipe right to complete, left to delete</span>
+                <span className="pt-0.5 text-xs text-base-500">Swipe right to complete, left to delete</span>
               </div>
-            </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex w-full items-stretch gap-2 lg:w-auto lg:items-start lg:justify-end lg:pt-1">
             <motion.button
               onClick={onToggle}
               type="button"
               whileTap={{ scale: 0.95 }}
               animate={{ scale: completedToday ? [1, 1.04, 1] : 1 }}
               transition={{ duration: 0.28 }}
-              className={`rounded-2xl px-4 py-3 text-sm font-semibold transition ${
+              className={`flex min-h-12 flex-1 items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold transition lg:flex-none ${
                 completedToday
                   ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/25"
                   : "bg-white/80 text-base-900 ring-1 ring-white/70 dark:bg-base-900/80 dark:text-white"
               }`}
             >
+              <Check className="h-4 w-4" />
               {completedToday ? "Completed today" : "Mark complete"}
             </motion.button>
             <button
               onClick={onDelete}
               type="button"
-              className="rounded-2xl bg-white/70 p-3 text-base-500 transition hover:bg-rose-500 hover:text-white dark:bg-base-900/80"
+              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/75 text-base-500 ring-1 ring-white/60 transition hover:bg-rose-500 hover:text-white dark:bg-base-900/80 dark:ring-white/10"
+              aria-label="Delete habit"
             >
               <Trash2 className="h-4 w-4" />
             </button>
